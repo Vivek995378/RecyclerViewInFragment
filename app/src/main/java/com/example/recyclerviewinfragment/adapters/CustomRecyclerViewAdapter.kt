@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewinfragment.R
+import com.example.recyclerviewinfragment.databinding.ItemRecyclerViewBinding
 import com.example.recyclerviewinfragment.models.Course
 
 class CustomRecyclerViewAdapter (private val mList: List<Course> , private val listener: OnItemClickListener) :
     RecyclerView.Adapter<CustomRecyclerViewAdapter.MyViewHolder>(){
 
-    inner class MyViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) , View.OnClickListener {
-        val tvCourse: TextView = itemView.findViewById(R.id.tvCourse)
-        val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
-        val tvFee: TextView = itemView.findViewById(R.id.tvFee)
+    inner class MyViewHolder(val binding : ItemRecyclerViewBinding) : RecyclerView.ViewHolder(binding.root) , View.OnClickListener {
+        val tvCourse: TextView = binding.tvCourse
+        val tvDescription: TextView = binding.tvDescription
+        val tvFee: TextView = binding.tvFee
 
         init {
             itemView.setOnClickListener(this)
@@ -34,10 +35,10 @@ class CustomRecyclerViewAdapter (private val mList: List<Course> , private val l
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_recycler_view, parent, false)
+        val binding = ItemRecyclerViewBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return MyViewHolder(view)
+        return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {

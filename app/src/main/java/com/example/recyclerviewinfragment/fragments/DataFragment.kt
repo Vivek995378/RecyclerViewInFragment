@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.recyclerviewinfragment.R
+import com.example.recyclerviewinfragment.databinding.FragmentDataBinding
+import com.example.recyclerviewinfragment.databinding.FragmentRecyclerViewBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -14,6 +16,8 @@ private const val ARG_PARAM2 = "param2"
 class DataFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var binding: FragmentDataBinding
 
     private var name: String? = ""
     private var des: String? = ""
@@ -30,20 +34,20 @@ class DataFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        var view =  inflater.inflate(R.layout.fragment_data, container, false)
+        binding = FragmentDataBinding.inflate(inflater , container , false)
 
         name = arguments?.getString("Name")
         des = arguments?.getString("Description")
         fee = arguments?.getString("Fee")
 
-        val cName = view.findViewById<TextView>(R.id.cname)
-        val cDes = view.findViewById<TextView>(R.id.description)
-        val cFee = view.findViewById<TextView>(R.id.fee)
+        val cName = binding.cname
+        val cDes = binding.description
+        val cFee = binding.fee
 
         cName.text = name
         cDes.text = des
         cFee.text = fee
 
-        return view
+        return binding.root
     }
 }

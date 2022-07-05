@@ -4,20 +4,25 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import com.example.recyclerviewinfragment.databinding.ActivityMainBinding
 import com.example.recyclerviewinfragment.fragments.DataFragment
 import com.example.recyclerviewinfragment.fragments.RecyclerViewFragment
 
 class MainActivity : AppCompatActivity() , Communicator {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, RecyclerViewFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(binding.frameLayout.id, RecyclerViewFragment()).commit()
     }
 
     override fun passDataCom(courseName: String, description: String, fee: Long) {

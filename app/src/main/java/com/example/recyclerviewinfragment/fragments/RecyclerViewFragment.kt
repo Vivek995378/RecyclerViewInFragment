@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewinfragment.Communicator
 import com.example.recyclerviewinfragment.R
 import com.example.recyclerviewinfragment.adapters.CustomRecyclerViewAdapter
+import com.example.recyclerviewinfragment.databinding.FragmentRecyclerViewBinding
 import com.example.recyclerviewinfragment.models.Course
 
 private const val ARG_PARAM1 = "param1"
@@ -18,6 +19,8 @@ private const val ARG_PARAM2 = "param2"
 class RecyclerViewFragment : Fragment() , CustomRecyclerViewAdapter.OnItemClickListener {
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var binding: FragmentRecyclerViewBinding
 
     var dataHolder : ArrayList<Course> = ArrayList<Course>()
     private lateinit var comm: Communicator
@@ -33,9 +36,9 @@ class RecyclerViewFragment : Fragment() , CustomRecyclerViewAdapter.OnItemClickL
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        var view : View = inflater.inflate(R.layout.fragment_recycler_view, container, false)
+        binding = FragmentRecyclerViewBinding.inflate(inflater , container , false)
 
-        var recyclerView : RecyclerView = view.findViewById(R.id.recyclerView)
+        var recyclerView = binding.recyclerView
 
         comm = requireActivity() as Communicator
 
@@ -77,10 +80,10 @@ class RecyclerViewFragment : Fragment() , CustomRecyclerViewAdapter.OnItemClickL
         dataHolder.add(Course("C" , "C is an imperative procedural language supporting structured programming, lexical variable scope, and recursion, with a static type system. It was designed to be compiled to provide low-level access to memory and language constructs that map efficiently to machine instructions, all with minimal runtime support." , 5000))
         dataHolder.add(Course("C#" , "C# (pronounced \"See Sharp\") is a modern, object-oriented, and type-safe programming language. C# enables developers to build many types of secure and robust applications that run in . NET. C# has its roots in the C family of languages and will be immediately familiar to C, C++, Java, and JavaScript programmers" , 5000))
         dataHolder.add(Course("Web Development" , "Web development is the work involved in developing a website for the Internet (World Wide Web) or an intranet (a private network). Web development can range from developing a simple single static page of plain text to complex web applications, electronic businesses, and social network services." , 25000))
-        
+
         recyclerView.adapter = CustomRecyclerViewAdapter(dataHolder , this)
 
-        return view
+        return binding.root
     }
 
     override fun onItemClick(position: Int) {
